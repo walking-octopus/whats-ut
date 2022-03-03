@@ -1,0 +1,15 @@
+{
+    "name": "whatsut.johndoe",
+    "description": "A native WhatsApp client written with love in Go.",
+    "architecture": "@CLICK_ARCH@",
+    "title": "WhatsUT",
+    "hooks": {
+        "whatsut": {
+            "apparmor": "whatsut.apparmor",
+            "desktop":  "whatsut.desktop"
+        }
+    },
+    "version": "1.0.0",
+    "maintainer": "JohnDoe <john.doe@email.invalid>",
+    "framework" : "@CLICK_FRAMEWORK@"
+}
