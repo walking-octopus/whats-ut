@@ -1,10 +1,10 @@
 # WhatsUT
 
-A native WhatsApp client written with love in Go.
+A native WhatsApp client for Ubuntu Touch written in Go.
 
 ## License
 
-Copyright (C) 2022  JohnDoe
+Copyright (C) 2022  walking-octopus
 
 This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License version 3, as published
 by the Free Software Foundation.

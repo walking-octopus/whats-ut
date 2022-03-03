@@ -1,10 +1,10 @@
 clickable_minimum_required: "7"
 builder: go
-kill: whatsut
+kill: whats-ut
 install_root_data:
 - manifest.json
-- whatsut.apparmor
-- whatsut.desktop
+- whats-ut.apparmor
+- whats-ut.desktop
 - assets
 - qml
 image_setup:

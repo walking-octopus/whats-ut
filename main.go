@@ -69,7 +69,7 @@ func handler(rawEvt interface{}) {
 }
 
 func whatsApp() {
-    var dbPath, err = xdg.ConfigFile("whatsut.johndoe/userStore.db")
+    var dbPath, err = xdg.ConfigFile("whats-ut.walking-octopus/userStore.db")
     if err != nil { panic(err) }
     os.Mkdir(strings.Replace(dbPath, "/userStore.db", "", 1), 0755)
 

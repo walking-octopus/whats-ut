@@ -1,15 +1,15 @@
 {
-    "name": "whatsut.johndoe",
-    "description": "A native WhatsApp client written with love in Go.",
+    "name": "whats-ut.walking-octopus",
+    "description": "A native WhatsApp client for Ubuntu Touch written in Go.",
     "architecture": "@CLICK_ARCH@",
     "title": "WhatsUT",
     "hooks": {
-        "whatsut": {
-            "apparmor": "whatsut.apparmor",
-            "desktop":  "whatsut.desktop"
+        "whats-ut": {
+            "apparmor": "whats-ut.apparmor",
+            "desktop":  "whats-ut.desktop"
         }
     },
     "version": "1.0.0",
-    "maintainer": "JohnDoe <john.doe@email.invalid>",
+    "maintainer": "walking-octopus <github.dphn6@aleeas.com>",
     "framework" : "@CLICK_FRAMEWORK@"
 }

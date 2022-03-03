@@ -8,7 +8,7 @@ import Qt.labs.settings 1.0
 MainView {
     id: root
     objectName: 'mainView'
-    applicationName: 'whatsut.johndoe'
+    applicationName: 'whats-ut.walking-octopus'
     automaticOrientation: true
 
     width: units.gu(80)
