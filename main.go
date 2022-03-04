@@ -38,7 +38,7 @@ func run() error {
 	qmlBridge := createClient()
 	context := engine.Context()
 	context.SetVar("qmlBridge", qmlBridge)
-	qmlBridge.Connect()
+	qmlBridge.connect()
 
 	win := component.CreateWindow(nil)
 	qmlBridge.Root = win.Root()
@@ -72,12 +72,12 @@ func createClient() *Client {
 	return c
 }
 
-func (c *Client) IsConnected() bool {
+func (c *Client) isConnected() bool {
 	return c.wmClient.Store.ID != nil
 }
 
-func (c *Client) Connect() {
-	if !c.IsConnected() {
+func (c *Client) connect() {
+	if !c.isConnected() {
 		fmt.Println("main.go: WhatsApp(): No Client Store ID")
 		qrChan, _ := c.wmClient.GetQRChannel(goContext.Background())
 		err := c.wmClient.Connect()
