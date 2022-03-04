@@ -4,12 +4,13 @@ import (
 	goContext "context"
 	"fmt"
 	"log"
-    "os"
-    "strings"
-    // "time"
+	"os"
+	"strings"
+
+	// "time"
 	// "strconv"
 
-    "github.com/adrg/xdg"
+	"github.com/adrg/xdg"
 	_ "github.com/mattn/go-sqlite3"
 	"github.com/nanu-c/qml-go"
 
@@ -19,99 +20,130 @@ import (
 	waLog "go.mau.fi/whatsmeow/util/log"
 )
 
-var client *whatsmeow.Client
-var status = make(chan string)
-var qmlBridge = Window{LoginToken: ""}
-
-type Window struct {
+type Client struct {
 	Root       qml.Object
 	LoginToken string
+	Status     string
+	Message    string
+	wmClient   *whatsmeow.Client
 }
 
 func run() error {
 	engine := qml.NewEngine()
 	component, err := engine.LoadFile("qml/Main.qml")
-	if err != nil { return err }
-
-	qmlBridge = Window{
-		LoginToken: "",
+	if err != nil {
+		return err
 	}
+
+	qmlBridge := createClient()
 	context := engine.Context()
-	context.SetVar("qmlBridge", &qmlBridge)
+	context.SetVar("qmlBridge", qmlBridge)
+	qmlBridge.connect()
 
 	win := component.CreateWindow(nil)
 	qmlBridge.Root = win.Root()
-
-    // FixMe: Gets stuck waiting for status most of the time
-    // FixMe: Doesn't listen for variable changes most of the time
-	go whatsApp()
-    var _ = <- status
-
-    win.Show()
+	win.Show()
 	win.Wait()
 
 	return nil
 }
 
-func handler(rawEvt interface{}) {
-	switch evt := rawEvt.(type) {
-        case *events.PairSuccess:
-            fmt.Println("Pair Success!")
-            qmlBridge.PushToQML("DONE")
-            status <- "DONE"
-        case *events.Connected:
-            fmt.Println("Resuming session")
-            qmlBridge.PushToQML("DONE")
-            status <- "DONE"
-	case *events.Message:
-		fmt.Printf("%s said %s to %s at %s\n", evt.Info.PushName, evt.Message.GetConversation(), evt.Info.Chat, evt.Info.Timestamp)
+func createClient() *Client {
+
+	var dbPath, err = xdg.ConfigFile("whats-ut.walking-octopus/userStore.db")
+	if err != nil {
+		panic(err)
 	}
-}
-
-func whatsApp() {
-    var dbPath, err = xdg.ConfigFile("whats-ut.walking-octopus/userStore.db")
-    if err != nil { panic(err) }
-    os.Mkdir(strings.Replace(dbPath, "/userStore.db", "", 1), 0755)
-
+	os.Mkdir(strings.Replace(dbPath, "/userStore.db", "", 1), 0755)
 
 	container, err := sqlstore.New("sqlite3", dbPath+"?_foreign_keys=on", waLog.Stdout("Database", "DEBUG", true))
-	if err != nil { panic(err) }
+	if err != nil {
+		panic(err)
+	}
 
 	deviceStore, err := container.GetFirstDevice()
-	if err != nil { panic(err) }
+	if err != nil {
+		panic(err)
+	}
 
-	client = whatsmeow.NewClient(deviceStore, waLog.Stdout("Client", "DEBUG", true))
-	client.AddEventHandler(handler)
+	c := &Client{LoginToken: ""}
+	c.wmClient = whatsmeow.NewClient(deviceStore, waLog.Stdout("Client", "DEBUG", true))
+	c.wmClient.AddEventHandler(c.handler)
+	return c
+}
 
-	if client.Store.ID == nil {
-		qrChan, _ := client.GetQRChannel(goContext.Background())
-		err = client.Connect()
-		if err != nil { panic(err) }
+func (c *Client) isConnected() bool {
+	return c.wmClient.Store.ID != nil
+}
 
-		for evt := range qrChan {
-			if evt.Event == "code" {
-				fmt.Println("QR code:", evt.Code)
-
-                // FixMe: The LoginToken can't be redefined from here or the handler usually, but not all of the time
-                qmlBridge.PushToQML(evt.Code)
-                status <- "QR"
-			} else {
-				fmt.Println("Login event:", evt.Event)
-			}
+func (c *Client) connect() {
+	if !c.isConnected() {
+		fmt.Println("main.go: WhatsApp(): No Client Store ID")
+		qrChan, _ := c.wmClient.GetQRChannel(goContext.Background())
+		err := c.wmClient.Connect()
+		if err != nil {
+			panic(err)
 		}
+
+		go func() {
+			for evt := range qrChan {
+				if evt.Event == "code" {
+					fmt.Println("QR code:", evt.Code)
+
+					// FixMe: The LoginToken can't be redefined from here or the handler usually, but not all of the time
+					c.setLoginToken(evt.Code)
+					c.setStatus("QR")
+				} else {
+					fmt.Println("Login event:", evt.Event)
+				}
+			}
+		}()
 	} else {
-		err = client.Connect()
-		if err != nil { panic(err) }
+		fmt.Println("main.go: WhatsApp(): Client Store ID:" + c.wmClient.Store.ID.User)
+		err := c.wmClient.Connect()
+		if err != nil {
+			panic(err)
+		}
 	}
 }
 
-func (qmlBridge *Window) PushToQML(token string) {
-	fmt.Printf("[whatsut] pushtoqml %s\n", token)
-	qmlBridge.LoginToken = token
-	qml.Changed(qmlBridge, &qmlBridge.LoginToken)
+func (c *Client) setLoginToken(token string) {
+	c.LoginToken = token
+	qml.Changed(c, &c.LoginToken)
+}
+
+func (c *Client) setStatus(status string) {
+	c.Status = status
+	qml.Changed(c, &c.Status)
+}
+
+func (c *Client) setMessage(message string) {
+	c.Message = message
+	qml.Changed(c, &c.Message)
+}
+
+func (c *Client) handler(rawEvt interface{}) {
+	switch evt := rawEvt.(type) {
+	case *events.PairSuccess:
+		fmt.Println("Pair Success!")
+		//c.setLoginToken("DONE")
+		c.setStatus("Connected")
+	case *events.Connected:
+		fmt.Println("Resuming session")
+		//c.setLoginToken("DONE")
+		c.setStatus("Connected")
+	case *events.Message:
+		msg := fmt.Sprintf("%s said %s to %s at %s\n", evt.Info.PushName, evt.Message.GetConversation(), evt.Info.Chat, evt.Info.Timestamp)
+		fmt.Printf(msg)
+		c.setMessage(msg)
+		c.setStatus("Messaged")
+
+	}
 }
 
 func main() {
 	err := qml.Run(run)
-	if err != nil { log.Fatal(err) }
+	if err != nil {
+		log.Fatal(err)
+	}
 }

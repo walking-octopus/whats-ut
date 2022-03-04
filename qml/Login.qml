@@ -73,37 +73,27 @@ Page {
                 width: parent.width - units.gu(5)
                 height: width
                 anchors.bottom: parent.bottom
-                value: qmlBridge.loginToken?qmlBridge.loginToken:""
+                value: qmlBridge.loginToken
             }
         }
         Button {
             text: "Manual reload"
             color: UbuntuColors.green
-            onClicked: internal.onTokenChanged()
+//            onClicked: internal.onTokenChanged()
             Layout.fillWidth: true
         }
     }
-    QtObject {
-        id: internal
-
-        function onTokenChanged() {
-            if (qmlBridge.loginToken == "DONE") {
-                mainStack.pop()
-                mainStack.push(Qt.resolvedUrl("MainPage.qml"))
-            }
-        }
-    }
-    //Timer {
-        //interval: 150
-        //running: true
-        //repeat: true
-        //onTriggered: internal.onTokenChanged()
-    //}
 
     Connections {
         target: qmlBridge
-        // onLoginTokenChanged: console.info("[whatsut-qml] ", qmlBridge.loginToken)
-        onLoginTokenChanged: internal.onTokenChanged()
+        onLoginTokenChanged: console.info("[whatsut-qml] ", qmlBridge.loginToken)
+        onStatusChanged: {
+            if (qmlBridge.status == "Connected") {
+                mainStack.clear();
+                mainStack.push(Qt.resolvedUrl("MainPage.qml"));
+            }
+        }
     }
+
     Component.onCompleted: console.log("Completed Running!", qmlBridge)
 }
