@@ -2,6 +2,9 @@
 
 A native WhatsApp client for Ubuntu Touch written in Go.
 
+## Warning!
+This is very early unfinished prototype. For unknown reasons, it even gets stuck creating the window on older devices, like Nexus 5. If you are a Go programmer, please help.
+
 ## License
 
 Copyright (C) 2022  walking-octopus
