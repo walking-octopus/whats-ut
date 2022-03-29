@@ -21,10 +21,10 @@ import Ubuntu.Components 1.3
 Page {
     id: viewerPage
 
-    title: "Placeholder"
+    title: "WhatsUT"
     header: PageHeader {
         id: header
-        title: "Placeholder"
+        title: i18n.tr("Conversations")
     }
 
     Label {

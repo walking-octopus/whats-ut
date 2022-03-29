@@ -1,0 +1,20 @@
+2022/03/05 13:33:11 .:0: Creating a QMirClientScreen now
+main.go: WhatsApp(): No Client Store ID
+13:33:11.349 [Client/Socket DEBUG] Dialing wss://web.whatsapp.com/ws/chat
+13:33:11.710 [Client/Socket DEBUG] Frame websocket read pump starting 0x18a0660
+13:33:11.946 [Client/Recv DEBUG] <iq from="s.whatsapp.net" id="1454511758" type="set" xmlns="md"><pair-device><ref>2@hvV/q/gru9tbGbbImEjL05QQ99maqSNRhxG2d0xkxjLM5spBicGSiPD1gH3VuW8dJSq8lW/7SypOWQ==</ref><ref>2@gYjjdEtulkwX3fptowW6U8jO6xqOMWiTujxJ83EWpz1n4Qlu44CNmXghqy+i1Zu4auRncfH50mXbSQ==</ref><ref>2@kBBYUWPWaVdb3+Tn5jYY2wlUPjf5TLgiHcbL0V/3XhDveOXZn0GKr+gK9pqVcYSSp9d4Gi1fBVuOVw==</ref><ref>2@Rwauq3A6bkdmLjpEd7JgmXDoP0oXI/eRJVmZxJggcYi3Y+4ILrSYLfVQfbciIY36e/uo6vAlt+mjlg==</ref><ref>2@TZ/RG3ZETjiH4EKxY3ILFsnie2P+nc0TXb98kqVI0oyaCPb3dZNpaeq0/bhTzYLlLdbSY/hA5xsFwg==</ref><ref>2@7GxTeBHhlPoyOOKsyqTEby2eAYWzGWV2+yLkXl415l/FUFqZo3TB32W/3LzimdMpo2sNhZPxy5Hl7Q==</ref></pair-device></iq>
+13:33:11.947 [Client/Send DEBUG] <iq id="1454511758" to="s.whatsapp.net" type="result"/>
+13:33:11.947 [Client/QRChannel DEBUG] Received QR code event, starting to emit codes to channel
+13:33:11.947 [Client/QRChannel DEBUG] Emitting QR code 2@hvV/q/gru9tbGbbImEjL05QQ99maqSNRhxG2d0xkxjLM5spBicGSiPD1gH3VuW8dJSq8lW/7SypOWQ==,PbK0b7ZNIBoGar9MA7O7l2g1FlxY/plLVdJ5piHzsAs=,wZ5XpHVW0m2sl2V+BZc/hD7UiCFXGiq2gdbDbU0TUXo=,Ax4UAF2ZU1hqWCdoQDnwk2c7ScYxIJuXaGUG/Wpuv9Q=
+QR code: 2@hvV/q/gru9tbGbbImEjL05QQ99maqSNRhxG2d0xkxjLM5spBicGSiPD1gH3VuW8dJSq8lW/7SypOWQ==,PbK0b7ZNIBoGar9MA7O7l2g1FlxY/plLVdJ5piHzsAs=,wZ5XpHVW0m2sl2V+BZc/hD7UiCFXGiq2gdbDbU0TUXo=,Ax4UAF2ZU1hqWCdoQDnwk2c7ScYxIJuXaGUG/Wpuv9Q=
+2022/03/05 13:33:12 Login.qml:98: Completed Running! Client(0x160b750)
+2022/03/05 13:33:12 Login.qml:89: [whatsut-qml]  2@hvV/q/gru9tbGbbImEjL05QQ99maqSNRhxG2d0xkxjLM5spBicGSiPD1gH3VuW8dJSq8lW/7SypOWQ==,PbK0b7ZNIBoGar9MA7O7l2g1FlxY/plLVdJ5piHzsAs=,wZ5XpHVW0m2sl2V+BZc/hD7UiCFXGiq2gdbDbU0TUXo=,Ax4UAF2ZU1hqWCdoQDnwk2c7ScYxIJuXaGUG/Wpuv9Q=
+library "/vendor/lib/egl/libGLESv2S3D_adreno.so" not found
+13:33:31.831 [Client/Send DEBUG] <iq id="193.99-1" to="s.whatsapp.net" type="get" xmlns="w:p"><ping/></iq>
+13:33:31.906 [Client/Recv DEBUG] <iq from="s.whatsapp.net" id="193.99-1" t="1646480011" type="result"/>
+13:34:01.666 [Client/Send DEBUG] <iq id="193.99-2" to="s.whatsapp.net" type="get" xmlns="w:p"><ping/></iq>
+13:34:01.744 [Client/Recv DEBUG] <iq from="s.whatsapp.net" id="193.99-2" t="1646480041" type="result"/>
+2022/03/05 13:34:11 .:0: QObject::startTimer: Timers cannot be started from another thread
+13:34:11.948 [Client/QRChannel DEBUG] Emitting QR code 2@gYjjdEtulkwX3fptowW6U8jO6xqOMWiTujxJ83EWpz1n4Qlu44CNmXghqy+i1Zu4auRncfH50mXbSQ==,PbK0b7ZNIBoGar9MA7O7l2g1FlxY/plLVdJ5piHzsAs=,wZ5XpHVW0m2sl2V+BZc/hD7UiCFXGiq2gdbDbU0TUXo=,Ax4UAF2ZU1hqWCdoQDnwk2c7ScYxIJuXaGUG/Wpuv9Q=
+QR code: 2@gYjjdEtulkwX3fptowW6U8jO6xqOMWiTujxJ83EWpz1n4Qlu44CNmXghqy+i1Zu4auRncfH50mXbSQ==,PbK0b7ZNIBoGar9MA7O7l2g1FlxY/plLVdJ5piHzsAs=,wZ5XpHVW0m2sl2V+BZc/hD7UiCFXGiq2gdbDbU0TUXo=,Ax4UAF2ZU1hqWCdoQDnwk2c7ScYxIJuXaGUG/Wpuv9Q=
+2022/03/05 13:34:11 Login.qml:89: [whatsut-qml]  2@gYjjdEtulkwX3fptowW6U8jO6xqOMWiTujxJ83EWpz1n4Qlu44CNmXghqy+i1Zu4auRncfH50mXbSQ==,PbK0b7ZNIBoGar9MA7O7l2g1FlxY/plLVdJ5piHzsAs=,wZ5XpHVW0m2sl2V+BZc/hD7UiCFXGiq2gdbDbU0TUXo=,Ax4UAF2ZU1hqWCdoQDnwk2c7ScYxIJuXaGUG/Wpuv9Q=

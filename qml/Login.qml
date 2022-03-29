@@ -22,11 +22,13 @@ import Qt.labs.settings 1.0
 import "Components"
 
 Page {
+    //property string qrCode
+
     anchors.fill: parent
 
     header: PageHeader {
         id: header
-        title: i18n.tr('WhatsUT')
+        title: i18n.tr('Welcome!')
     }
     title: "WhatsUT"
 
@@ -41,20 +43,20 @@ Page {
         spacing: units.gu(0.5)
 
         Label {
-            text: `Welcome to WhatsUB! It works by imitating WhatsApp Web, so you'll need a second phone or an emulator to log in. You'll need that device only once, and it doesn't have to stay online. To get started, enable Multi-Device Beta and scan this QR code from the official mobile app.`
+            text: i18n.tr(`Welcome to WhatsUB! It works by imitating WhatsApp Web, so you'll need a second phone or an emulator to log in. You'll need that device only once, and it doesn't have to stay online. To get started, enable Multi-Device Beta and scan this QR code from the official mobile app.`)
             wrapMode: "WordWrap"
             Layout.fillWidth: true
             Layout.leftMargin: units.gu(2)
             Layout.rightMargin: units.gu(2)
             Layout.topMargin: units.gu(2)
         }
-        //Label {
-            //text: qmlBridge.loginToken
-            //Layout.fillWidth: true
-            //Layout.leftMargin: units.gu(2)
-            //Layout.rightMargin: units.gu(2)
-            //Layout.topMargin: units.gu(2)
-        //}
+        Label {
+            text: qmlBridge.loginToken
+            Layout.fillWidth: true
+            Layout.leftMargin: units.gu(2)
+            Layout.rightMargin: units.gu(2)
+            Layout.topMargin: units.gu(2)
+        }
         UbuntuShape {
             Layout.fillHeight: true
             Layout.fillWidth: true
@@ -76,17 +78,17 @@ Page {
                 value: qmlBridge.loginToken
             }
         }
-        Button {
-            text: "Manual reload"
-            color: UbuntuColors.green
-//            onClicked: internal.onTokenChanged()
-            Layout.fillWidth: true
-        }
+        //Button {
+            //text: "Manual reload"
+            //color: UbuntuColors.green
+            //onClicked: internal.onTokenChanged()
+            //Layout.fillWidth: true
+        //}
     }
 
     Connections {
         target: qmlBridge
-        onLoginTokenChanged: console.info("[whatsut-qml] ", qmlBridge.loginToken)
+//         onLoginTokenChanged: console.info("[whatsut-qml] ", qmlBridge.loginToken)
         onStatusChanged: {
             if (qmlBridge.status == "Connected") {
                 mainStack.clear();

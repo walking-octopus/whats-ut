@@ -21,11 +21,12 @@ import (
 )
 
 type Client struct {
-	Root       qml.Object
-	LoginToken string
-	Status     string
-	Message    string
-	wmClient   *whatsmeow.Client
+	Root        qml.Object
+	LoginToken  string
+	Status      string
+	Message     string
+	DisplayName string
+	wmClient    *whatsmeow.Client
 }
 
 func run() error {
@@ -36,20 +37,27 @@ func run() error {
 	}
 
 	qmlBridge := createClient()
-	context := engine.Context()
-	context.SetVar("qmlBridge", qmlBridge)
 	qmlBridge.connect()
 
-	win := component.CreateWindow(nil)
+	fmt.Println("before create context")
+	context := engine.Context()
+	fmt.Println("before set qmlBridge")
+	context.SetVar("qmlBridge", qmlBridge)
+
+	fmt.Println("before create window")
+	win := component.CreateWindow(context)
+	fmt.Println("before set win root")
 	qmlBridge.Root = win.Root()
-	win.Show()
+
+	fmt.Println("before window show")
+    win.Show()
+	fmt.Println("before window wait")
 	win.Wait()
 
 	return nil
 }
 
 func createClient() *Client {
-
 	var dbPath, err = xdg.ConfigFile("whats-ut.walking-octopus/userStore.db")
 	if err != nil {
 		panic(err)
@@ -90,7 +98,6 @@ func (c *Client) connect() {
 				if evt.Event == "code" {
 					fmt.Println("QR code:", evt.Code)
 
-					// FixMe: The LoginToken can't be redefined from here or the handler usually, but not all of the time
 					c.setLoginToken(evt.Code)
 					c.setStatus("QR")
 				} else {
@@ -122,22 +129,24 @@ func (c *Client) setMessage(message string) {
 	qml.Changed(c, &c.Message)
 }
 
+func (c *Client) setDisplayName(name string) {
+	c.DisplayName = name
+	qml.Changed(c, &c.DisplayName)
+}
+
 func (c *Client) handler(rawEvt interface{}) {
 	switch evt := rawEvt.(type) {
 	case *events.PairSuccess:
 		fmt.Println("Pair Success!")
-		//c.setLoginToken("DONE")
 		c.setStatus("Connected")
 	case *events.Connected:
 		fmt.Println("Resuming session")
-		//c.setLoginToken("DONE")
 		c.setStatus("Connected")
 	case *events.Message:
 		msg := fmt.Sprintf("%s said %s to %s at %s\n", evt.Info.PushName, evt.Message.GetConversation(), evt.Info.Chat, evt.Info.Timestamp)
 		fmt.Printf(msg)
 		c.setMessage(msg)
 		c.setStatus("Messaged")
-
 	}
 }
 

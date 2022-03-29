@@ -18,4 +18,10 @@ MainView {
         id: mainStack
         Component.onCompleted: mainStack.push(Qt.resolvedUrl("Login.qml"))
     }
+    //Button {
+        //text: "Manual reload"
+        //color: UbuntuColors.green
+        //onClicked: internal.refreshPage()
+        //Layout.fillWidth: true
+    //}
 }
