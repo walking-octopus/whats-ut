@@ -11,8 +11,8 @@ github.com/gorilla/websocket v1.4.2 h1:+/TMaTYc4QFitKJxsQ7Yye35DkWvkdLcvGKqM+x0U
 github.com/gorilla/websocket v1.4.2/go.mod h1:YR8l580nyteQvAITg2hZ9XVh4b55+EU/adAjf1fMHhE=
 github.com/mattn/go-sqlite3 v1.14.12 h1:TJ1bhYJPV44phC+IMu1u2K/i5RriLTPe+yc68XDJ1Z0=
 github.com/mattn/go-sqlite3 v1.14.12/go.mod h1:NyWgC/yNuGj7Q9rpYnZvas74GogHl5/Z4A/KQRfk6bU=
-github.com/nanu-c/qml-go v0.0.0-20201002212753-238e81315528 h1:2lBVfvmRfsf0hCmRUleZ5YP6krzNVFUoAz0LcIDoR28=
-github.com/nanu-c/qml-go v0.0.0-20201002212753-238e81315528/go.mod h1:+CWJBokLe0H9JxwjmEDa+duYU4Al/DB6+1r+M8dOHQE=
+github.com/nanu-c/qml-go v1.0.1 h1:pme769kwUhjxUSqTMe3KivzsI8SifIqWzeR57f9BCcA=
+github.com/nanu-c/qml-go v1.0.1/go.mod h1:+CWJBokLe0H9JxwjmEDa+duYU4Al/DB6+1r+M8dOHQE=
 github.com/pmezard/go-difflib v1.0.0 h1:4DBwDE0NGyQoBHbLQYPwSUPoCMWR5BEzIk/f1lZbAQM=
 github.com/pmezard/go-difflib v1.0.0/go.mod h1:iKH77koFhYxTK1pcRnkKkqfTogsbg7gZNVY4sRDYZ/4=
 github.com/stretchr/objx v0.1.0/go.mod h1:HFkY916IF+rwdDfMAkV7OtwuqBVzrE8GR6GFx+wExME=
