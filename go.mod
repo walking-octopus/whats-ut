@@ -4,7 +4,7 @@ go 1.17
 
 require (
 	github.com/adrg/xdg v0.4.0
-	github.com/mattn/go-sqlite3 v1.14.12
+	github.com/mattn/go-sqlite3 v1.14.22
 	github.com/nanu-c/qml-go v0.0.0-20201002212753-238e81315528
 	go.mau.fi/whatsmeow v0.0.0-20220302184339-7959f8e0ce83
 )
